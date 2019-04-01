@@ -1,4 +1,6 @@
-package ru.kpfu.itis;
+package ru.kpfu.itis.crawler;
+
+import ru.kpfu.itis.util.FileUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,9 +12,18 @@ import java.util.List;
 import java.util.Set;
 
 public class Crawler {
-    private static final int MAX_PAGES_TO_SEARCH = 10;
-    private Set<String> pagesVisited = new HashSet<String>();
-    private List<String> pagesToVisit = new LinkedList<String>();
+    private static final int MAX_PAGES_TO_SEARCH = 100;
+    private Set<String> pagesVisited = new HashSet<>();
+    private List<String> pagesToVisit = new LinkedList<>();
+
+    public static final String BASE_URL = "https://habr.com";
+    public static final String START_PATH = BASE_URL + "/en/";
+
+    public Crawler() {
+        FileUtils fileUtils = new FileUtils();
+        fileUtils.clearDirectory();
+        fileUtils.createDirectories(FileUtils.BASE_PATH);
+    }
 
     public void search(String url) {
         while (this.pagesVisited.size() < MAX_PAGES_TO_SEARCH) {
@@ -28,6 +39,7 @@ public class Crawler {
             this.pagesToVisit.addAll(parser.getLinks());
         }
         System.out.println("\n**Done** Visited " + this.pagesVisited.size() + " web page(s)");
+
     }
 
     private String nextUrl() {
@@ -39,14 +51,18 @@ public class Crawler {
         return nextUrl;
     }
 
-    private void writeLinks() throws IOException {
+    private void writeLinks() {
         Path path = Paths.get("src/main/resources/links.txt");
-        Files.write(path, pagesVisited);
+        try {
+            Files.write(path, pagesVisited);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Crawler crawler = new Crawler();
-        crawler.search("https://habr.com/ru/");
+        crawler.search(START_PATH);
         crawler.writeLinks();
     }
 }
