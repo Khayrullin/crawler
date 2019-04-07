@@ -22,13 +22,15 @@ public class FileUtils {
     public static final String LEMMATIZED_PATH = BASE_PATH + "lemma/";
     public static final String INVERTED_INDEX = BASE_PATH + "inverdtedIndex.txt";
     public static final String TF_IDF = BASE_PATH + "tfidf/";
+    public static final String IDF = BASE_PATH + "idf.json";
 
     public void writeDocument(Document document, String id) {
         createDirectories(POSTS_PATH);
-        Path path = Paths.get(POSTS_PATH + id.replaceAll("[:/\\\\]", "_") +
+        Path path = Paths.get(POSTS_PATH + id.replaceAll("[\\\\/:\"*?<>|]+", "_") +
                 ".txt");
         try {
-            String text = document.select("div > div.post__body.post__body_full > div").text();
+            String text = document.body().text();
+//            String text = document.select("div > div.post__body.post__body_full > div").text();
             Pattern p = Pattern.compile("[a-zA-Z]{2,}");
             Matcher matcher = p.matcher(text);
             StringBuilder stringBuilder = new StringBuilder();

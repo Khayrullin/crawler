@@ -40,9 +40,8 @@ public class Main {
 
         try {
             Files.delete(Paths.get(INVERTED_INDEX));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException ignored) { }
+        InvertedIndex invertedIndex = new InvertedIndex();
         invertedInd.forEach((s, integers) -> {
             fileUtils.writeFile(Paths.get(FileUtils.BASE_PATH + "inverdtedIndex.txt"), (s + ":" + integers.stream()
                             .sorted()

@@ -21,7 +21,8 @@ public class Parser {
     public boolean crawl(String url) {
         Document htmlDocument = scan(url);
         fileUtils.writeDocument(htmlDocument, k++ + "_" + url);
-        Elements linksOnPage = htmlDocument.select("a[href^=\"https://habr.com/en/post/\"]")
+//        Elements linksOnPage = htmlDocument.select("a[href^=\"https://habr.com/en/post/\"]")
+        Elements linksOnPage = htmlDocument.select("a")
                 .stream().filter(e -> !e.attr("abs:href").contains("#"))
                 .collect(Collectors.toCollection(Elements::new));
         linksOnPage.forEach(link -> this.links.add(link.absUrl("href")));
