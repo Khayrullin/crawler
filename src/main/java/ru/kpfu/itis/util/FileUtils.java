@@ -20,6 +20,8 @@ public class FileUtils {
     public static final String BASE_PATH = "src/main/resources/";
     public static final String POSTS_PATH = BASE_PATH + "posts/";
     public static final String LEMMATIZED_PATH = BASE_PATH + "lemma/";
+    public static final String INVERTED_INDEX = BASE_PATH + "inverdtedIndex.txt";
+    public static final String TF_IDF = BASE_PATH + "tfidf/";
 
     public void writeDocument(Document document, String id) {
         createDirectories(POSTS_PATH);
@@ -82,9 +84,6 @@ public class FileUtils {
         }
     }
 
-    public void initializeResultFolder() {
-
-    }
 
     public void clearDirectory() {
         if (!Paths.get(BASE_PATH).toFile().exists()) return;

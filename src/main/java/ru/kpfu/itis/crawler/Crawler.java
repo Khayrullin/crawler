@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 public class Crawler {
-    private static final int MAX_PAGES_TO_SEARCH = 100;
+    private static final int MAX_PAGES_TO_SEARCH = 10;
     private Set<String> pagesVisited = new HashSet<>();
     private List<String> pagesToVisit = new LinkedList<>();
 

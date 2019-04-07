@@ -10,7 +10,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static ru.kpfu.itis.util.FileUtils.BASE_PATH;
+import static ru.kpfu.itis.util.FileUtils.INVERTED_INDEX;
 import static ru.kpfu.itis.util.FileUtils.LEMMATIZED_PATH;
 
 public class Main {
@@ -39,7 +39,7 @@ public class Main {
         }
 
         try {
-            Files.delete(Paths.get(BASE_PATH + "inverdtedIndex.txt"));
+            Files.delete(Paths.get(INVERTED_INDEX));
         } catch (IOException e) {
             e.printStackTrace();
         }
